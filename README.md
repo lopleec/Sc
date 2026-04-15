@@ -53,6 +53,10 @@ Sc is a lightweight macOS overlay chat app for windowed games. It creates privat
 2. 选择 `Sc` scheme
 3. 直接运行到本机
 
+也可以直接下载已经编译好的版本：
+
+- [GitHub Releases](https://github.com/lopleec/Sc/releases)
+
 也可以使用命令行构建：
 
 ```bash
@@ -120,6 +124,10 @@ Sc is a lightweight macOS overlay chat app for windowed games. It creates privat
 1. Open `Sc.xcodeproj` in Xcode
 2. Select the `Sc` scheme
 3. Run it on your Mac
+
+You can also download a prebuilt version directly:
+
+- [GitHub Releases](https://github.com/lopleec/Sc/releases)
 
 Or build from the command line:
 
