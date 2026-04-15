@@ -20,6 +20,8 @@ Lightweight macOS overlay chat for windowed and borderless-fullscreen games.
 
 ## Screenshots
 
+### Feature Showcase / 功能展示
+
 ![Control Center](docs/images/control-center.png)
 
 *Control Center*
@@ -27,6 +29,12 @@ Lightweight macOS overlay chat for windowed and borderless-fullscreen games.
 ![Overlay Chat](docs/images/overlay-chat.png)
 
 *Overlay Chat*
+
+### Light / Dark Appearance / 深浅色展示
+
+![Light and Dark Modes](docs/images/light-dark-modes.png)
+
+*Control Center in light and dark appearance*
 
 ---
 
