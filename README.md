@@ -72,11 +72,18 @@ xcodebuild -project Sc.xcodeproj -scheme Sc -configuration Debug CODE_SIGNING_AL
 3. Use `Command + /` to open the overlay chat once connected
 4. Stop the current session from the control center when done
 
+### Notes
+
+- Session creators and joiners must use the same IRC server
+- If one server is unavailable, switch to another preset or your own server
+- In advanced settings, entering `0` means no limit: messages are not truncated and previews do not auto-hide
+
 ### Permissions
 
 - Standard global hotkeys usually work in normal windowed apps
 - Some full-screen apps require `Input Monitoring`
 - `Accessibility` permission is usually not required
+- If macOS says the app is damaged, run `sudo xattr -rd com.apple.quarantine /path/to/Sc.app`
 
 ### Project Structure
 
@@ -133,11 +140,18 @@ xcodebuild -project Sc.xcodeproj -scheme Sc -configuration Debug CODE_SIGNING_AL
 3. 连接成功后，用 `Command + /` 呼出聊天栏
 4. 使用结束后，在控制中心停止当前会话
 
+### 注意
+
+- 创建会话的人和加入会话的人必须使用同一个 IRC 服务器
+- 如果某个服务器不可用，请切换到其他预设或你自己的服务器
+- 在高级设置里输入 `0` 表示不限：消息不截断，预览不自动收起
+
 ### 权限说明
 
 - 普通窗口应用下，全局热键通常可直接使用
 - 某些全屏应用需要开启 `Input Monitoring`
 - 一般不需要 `Accessibility` 权限
+- 如果 macOS 提示应用已损坏，可运行 `sudo xattr -rd com.apple.quarantine /path/to/Sc.app`
 
 ### 项目结构
 
