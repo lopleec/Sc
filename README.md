@@ -88,15 +88,9 @@ xcodebuild -project Sc.xcodeproj -scheme Sc -configuration Debug CODE_SIGNING_AL
 - `ScTests/`：单元测试
 - `project.yml`：XcodeGen 配置
 
-### License 建议
+### License
 
-如果你准备把这个项目公开，我更推荐 `MIT License`：
-
-- 足够简单，分发和商用阻力最小
-- 对桌面工具项目很友好
-- 便于别人快速 fork 和二次开发
-
-如果你更看重专利授权条款，再考虑 `Apache-2.0`。
+本项目使用 `MIT License`。详见 `LICENSE` 文件。
 
 ---
 
@@ -160,12 +154,6 @@ xcodebuild -project Sc.xcodeproj -scheme Sc -configuration Debug CODE_SIGNING_AL
 - `ScTests/`: unit tests
 - `project.yml`: XcodeGen configuration
 
-### License Recommendation
+### License
 
-If you plan to publish the project, `MIT License` is the best default choice here:
-
-- simple and easy to understand
-- low-friction for redistribution and commercial use
-- ideal for a small desktop utility
-
-If you want a stronger explicit patent grant, consider `Apache-2.0` instead.
+This project is licensed under the `MIT License`. See `LICENSE` for details.
