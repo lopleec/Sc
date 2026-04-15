@@ -1,6 +1,22 @@
 # Sc
 
+![Platform](https://img.shields.io/badge/platform-macOS%2015%2B-black?logo=apple)
+![Swift](https://img.shields.io/badge/Swift-6-orange?logo=swift)
+![UI](https://img.shields.io/badge/UI-SwiftUI-0A84FF)
+![Language](https://img.shields.io/badge/language-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-34C759)
+![License](https://img.shields.io/github/license/lopleec/Sc)
+
 [简体中文](#简体中文) | [English](#english)
+
+## Preview
+
+![Control Center](docs/images/control-center.png)
+
+*Control Center / 控制中心*
+
+![Overlay Chat](docs/images/overlay-chat.png)
+
+*Overlay Chat / 悬浮聊天窗*
 
 ---
 
