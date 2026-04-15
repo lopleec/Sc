@@ -2,6 +2,8 @@
 
 # Sc
 
+Lightweight macOS overlay chat for windowed and borderless-fullscreen games.
+
 <p>
   <img alt="Platform" src="https://img.shields.io/badge/platform-macOS%2015%2B-black?logo=apple">
   <img alt="Swift" src="https://img.shields.io/badge/Swift-6-orange?logo=swift">
@@ -11,117 +13,51 @@
 </p>
 
 <p>
-  <a href="#简体中文">简体中文</a> · <a href="#english">English</a>
+  <a href="#english">English</a> · <a href="#简体中文">简体中文</a>
 </p>
 
 </div>
 
-## Preview
+## Screenshots
 
 ![Control Center](docs/images/control-center.png)
 
-*Control Center / 控制中心*
+*Control Center*
 
 ![Overlay Chat](docs/images/overlay-chat.png)
 
-*Overlay Chat / 悬浮聊天窗*
-
----
-
-## 简体中文
-
-Sc 是一个用 `Swift + SwiftUI` 构建的 macOS 悬浮聊天工具，面向窗口化或无边框全屏游戏场景。它会为每次会话自动创建一个私密 IRC 房间，并通过一段 `SC1:` 邀请码完成加入流程。
-
-### 功能特性
-
-- 游戏内风格的左下角悬浮聊天栏
-- 全局快捷键 `Command + /` 呼出或隐藏聊天输入
-- 自动生成随机频道和随机密码的单会话房间
-- 粘贴邀请码即可加入，不需要手动填频道和密码
-- 新消息隐藏时自动弹出预览
-- 图形化设置页，支持昵称、服务器、透明度、字号、宽度等配置
-- 支持 `English / 简体中文`，并可在应用内手动切换语言
-- 昵称限制为英文和数字，兼容常见 IRC 服务器
-
-### 英文简介
-
-Sc is a lightweight macOS overlay chat app for windowed games. It creates private IRC-backed sessions with shareable invite codes and lets you toggle a lower-left in-game-style chat bar with `Command + /`.
-
-### 运行方式
-
-1. 用 Xcode 打开 `Sc.xcodeproj`
-2. 选择 `Sc` scheme
-3. 直接运行到本机
-
-也可以直接下载已经编译好的版本：
-
-- [GitHub Releases](https://github.com/lopleec/Sc/releases)
-
-也可以使用命令行构建：
-
-```bash
-xcodebuild -project Sc.xcodeproj -scheme Sc -configuration Debug CODE_SIGNING_ALLOWED=NO build
-```
-
-### 使用流程
-
-1. 打开应用，进入控制中心
-2. 选择“创建会话”或粘贴邀请码加入
-3. 进入会话后，用 `Command + /` 呼出聊天栏
-4. 在设置页里停止当前会话，或退出应用
-
-### 权限说明
-
-- 普通窗口应用下，全局热键通常可直接使用
-- 某些全屏应用需要开启 `Input Monitoring`
-- 一般不需要 `Accessibility` 权限
-
-### 语言切换
-
-- 在控制中心的 `语言 / Language` 区域中切换
-- 可选：跟随系统、English、简体中文
-- 切换后界面会立即刷新
-
-### 目录结构
-
-- `Sc/`：应用源码
-- `ScTests/`：单元测试
-- `project.yml`：XcodeGen 配置
-
-### License
-
-本项目使用 `MIT License`。详见 `LICENSE` 文件。
+*Overlay Chat*
 
 ---
 
 ## English
 
-Sc is a macOS overlay chat app built with `Swift + SwiftUI` for windowed and borderless-fullscreen game setups. Each session creates a private IRC room with a random channel and password, and other players can join by pasting a single `SC1:` invite code.
+Sc is a lightweight macOS overlay chat app for windowed and borderless-fullscreen games. It uses private IRC-backed sessions with shareable invite codes and a lower-left in-game-style chat bar that can be toggled with `Command + /`.
 
 ### Features
 
-- Lower-left in-game-style overlay chat bar
-- Global `Command + /` hotkey to show or hide chat input
-- One live session at a time, with randomized private room credentials
-- Paste-to-join invite flow, no manual channel/password entry
-- Auto-preview popups for incoming messages while hidden
-- Visual settings for nickname, server, opacity, font size, width, and spacing
-- Built-in `English / Simplified Chinese` support with manual in-app switching
+- Lower-left overlay chat bar designed for game-style communication
+- Global `Command + /` hotkey to show or hide the chat window
+- Private single-session rooms with randomized channel names and passwords
+- `SC1:` invite codes for sharing and joining conversations
+- Automatic pop-up previews when new messages arrive while the overlay is hidden
+- Scrollable chat history inside the overlay window
+- Standard SwiftUI control center for creating, joining, stopping, and managing sessions
+- Configurable nickname, server, opacity, font size, width, and spacing
+- Built-in IRC server presets and custom server support
+- English and Simplified Chinese interface support with manual in-app switching
 - Nicknames restricted to English letters and numbers for IRC compatibility
+- Full-screen hotkey fallback with macOS Input Monitoring support
 
-### Short Description
+### Download
 
-Sc is a lightweight macOS overlay chat app for windowed games. It creates private IRC-backed sessions with shareable invite codes and lets you toggle a lower-left in-game-style chat bar with `Command + /`.
+- Prebuilt app: [GitHub Releases](https://github.com/lopleec/Sc/releases)
 
-### Running the App
+### Run From Source
 
 1. Open `Sc.xcodeproj` in Xcode
 2. Select the `Sc` scheme
 3. Run it on your Mac
-
-You can also download a prebuilt version directly:
-
-- [GitHub Releases](https://github.com/lopleec/Sc/releases)
 
 Or build from the command line:
 
@@ -134,7 +70,7 @@ xcodebuild -project Sc.xcodeproj -scheme Sc -configuration Debug CODE_SIGNING_AL
 1. Launch the app and open the control center
 2. Create a session or paste an invite code to join one
 3. Use `Command + /` to open the overlay chat once connected
-4. Stop the session from the settings window when done
+4. Stop the current session from the control center when done
 
 ### Permissions
 
@@ -142,18 +78,74 @@ xcodebuild -project Sc.xcodeproj -scheme Sc -configuration Debug CODE_SIGNING_AL
 - Some full-screen apps require `Input Monitoring`
 - `Accessibility` permission is usually not required
 
-### Language Switching
-
-- Open the `Language` section in the control center
-- Choose Follow System, English, or Simplified Chinese
-- The UI refreshes immediately after switching
-
-### Project Layout
+### Project Structure
 
 - `Sc/`: application source
 - `ScTests/`: unit tests
+- `docs/images/`: README screenshots
 - `project.yml`: XcodeGen configuration
 
 ### License
 
 This project is licensed under the `MIT License`. See `LICENSE` for details.
+
+---
+
+## 简体中文
+
+Sc 是一个面向窗口化和无边框全屏游戏场景的 macOS 悬浮聊天工具。它基于私密 IRC 会话工作，通过可分享的邀请码加入，并提供一个固定在左下角、可用 `Command + /` 呼出或隐藏的游戏风格聊天栏。
+
+### 功能
+
+- 左下角游戏风格悬浮聊天栏
+- 全局 `Command + /` 快捷键呼出或隐藏聊天窗口
+- 单会话私密房间，自动生成随机频道名和密码
+- `SC1:` 邀请码分享和加入流程
+- 聊天栏隐藏时，新消息自动弹出预览
+- 悬浮窗内支持滚动查看聊天历史
+- 标准 SwiftUI 控制中心，可创建、加入、停止和管理会话
+- 可配置昵称、服务器、透明度、字号、宽度和边距
+- 内置 IRC 预设服务器，并支持自定义服务器
+- 支持 English / 简体中文，并可在应用内手动切换
+- 昵称只允许英文和数字，以兼容 IRC 服务器
+- 对全屏应用提供基于 macOS `Input Monitoring` 的热键兜底
+
+### 下载
+
+- 已编译版本：[GitHub Releases](https://github.com/lopleec/Sc/releases)
+
+### 从源码运行
+
+1. 用 Xcode 打开 `Sc.xcodeproj`
+2. 选择 `Sc` scheme
+3. 直接运行到本机
+
+也可以使用命令行构建：
+
+```bash
+xcodebuild -project Sc.xcodeproj -scheme Sc -configuration Debug CODE_SIGNING_ALLOWED=NO build
+```
+
+### 使用流程
+
+1. 打开应用，进入控制中心
+2. 创建会话，或粘贴邀请码加入
+3. 连接成功后，用 `Command + /` 呼出聊天栏
+4. 使用结束后，在控制中心停止当前会话
+
+### 权限说明
+
+- 普通窗口应用下，全局热键通常可直接使用
+- 某些全屏应用需要开启 `Input Monitoring`
+- 一般不需要 `Accessibility` 权限
+
+### 项目结构
+
+- `Sc/`：应用源码
+- `ScTests/`：单元测试
+- `docs/images/`：README 截图资源
+- `project.yml`：XcodeGen 配置
+
+### License
+
+本项目使用 `MIT License`。详见 `LICENSE` 文件。
