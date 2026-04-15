@@ -1,0 +1,6 @@
+.DS_Store
+.build/
+.build-release/
+.derived-release/
+Sc.xcodeproj/xcuserdata/
+Sc.xcodeproj/project.xcworkspace/xcuserdata/
