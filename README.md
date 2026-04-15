@@ -1,12 +1,20 @@
+<div align="center">
+
 # Sc
 
-![Platform](https://img.shields.io/badge/platform-macOS%2015%2B-black?logo=apple)
-![Swift](https://img.shields.io/badge/Swift-6-orange?logo=swift)
-![UI](https://img.shields.io/badge/UI-SwiftUI-0A84FF)
-![Language](https://img.shields.io/badge/language-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-34C759)
-![License](https://img.shields.io/github/license/lopleec/Sc)
+<p>
+  <img alt="Platform" src="https://img.shields.io/badge/platform-macOS%2015%2B-black?logo=apple">
+  <img alt="Swift" src="https://img.shields.io/badge/Swift-6-orange?logo=swift">
+  <img alt="UI" src="https://img.shields.io/badge/UI-SwiftUI-0A84FF">
+  <img alt="Language" src="https://img.shields.io/badge/language-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-34C759">
+  <img alt="License" src="https://img.shields.io/github/license/lopleec/Sc">
+</p>
 
-[简体中文](#简体中文) | [English](#english)
+<p>
+  <a href="#简体中文">简体中文</a> · <a href="#english">English</a>
+</p>
+
+</div>
 
 ## Preview
 
