@@ -90,5 +90,36 @@ final class ScTests: XCTestCase {
         let decoded = try JSONDecoder().decode(AppSettings.self, from: Data(legacyPayload.utf8))
 
         XCTAssertEqual(decoded.appLanguage, .system)
+        XCTAssertEqual(decoded.appearance.messageLineLimit, 2)
+        XCTAssertEqual(decoded.appearance.previewDuration, 6)
+        XCTAssertTrue(decoded.appearance.showIncomingPreview)
+        XCTAssertFalse(decoded.appearance.showTimestamps)
+    }
+
+    func testAppearanceSettingsClampAdvancedValues() {
+        let settings = AppearanceSettings(
+            overlayOpacity: 0.1,
+            fontSize: 40,
+            overlayWidth: 900,
+            edgePadding: -3,
+            bottomPadding: 120,
+            messageLimit: 99,
+            messageLineLimit: -1,
+            previewDuration: -1,
+            showIncomingPreview: false,
+            showTimestamps: true
+        ).clamped()
+
+        XCTAssertEqual(settings.overlayOpacity, 0.35)
+        XCTAssertEqual(settings.fontSize, 28)
+        XCTAssertEqual(settings.overlayWidth, 620)
+        XCTAssertEqual(settings.edgePadding, 0)
+        XCTAssertEqual(settings.bottomPadding, 80)
+        XCTAssertEqual(settings.messageLimit, 20)
+        XCTAssertEqual(settings.messageLineLimit, 0)
+        XCTAssertEqual(settings.previewDuration, 0)
+        XCTAssertFalse(settings.showIncomingPreview)
+        XCTAssertTrue(settings.showTimestamps)
+        XCTAssertEqual(AppearanceSettings(previewDuration: 30).clamped().previewDuration, 15)
     }
 }

@@ -33,7 +33,7 @@
 "language.english" = "English";
 "language.simplified_chinese" = "Simplified Chinese";
 "server.section" = "IRC Server";
-"server.footer" = "Built-in presets default to TLS. You can also point Sc at your own server.";
+"server.footer" = "Built-in presets default to TLS. Room creators and joiners must use the same server. If one server is unavailable, switch to another preset or your own server.";
 "server.preset" = "Preset";
 "server.preset.libera" = "Libera Chat";
 "server.preset.rizon" = "Rizon";
@@ -45,6 +45,8 @@
 "server.summary" = "%@:%d · %@";
 "appearance.section" = "Overlay";
 "appearance.footer" = "The overlay follows the system appearance and uses standard SwiftUI materials.";
+"appearance.advanced.section" = "Advanced";
+"appearance.advanced.footer" = "Fine-tune preview timing, wrapping, and message metadata for denser chat layouts. Enter 0 for no limit: messages will not be truncated and previews will not auto-hide.";
 "messages.section" = "Messages";
 "messages.none" = "No local messages yet.";
 "messages.none.short" = "No messages yet";
@@ -62,6 +64,11 @@
 "field.left_padding" = "Left Padding";
 "field.bottom_padding" = "Bottom Padding";
 "field.visible_messages" = "Visible Messages";
+"field.message_lines" = "Lines Per Message";
+"field.preview_duration" = "Preview Duration";
+"field.seconds" = "sec";
+"field.auto_preview" = "Incoming Message Preview";
+"field.timestamps" = "Show Timestamps";
 "action.create_session" = "Create Session";
 "action.join_session" = "Join Session";
 "action.stop_session" = "Stop Session";

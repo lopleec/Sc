@@ -33,7 +33,7 @@
 "language.english" = "English";
 "language.simplified_chinese" = "简体中文";
 "server.section" = "IRC 服务器";
-"server.footer" = "内置预设默认使用 TLS，也可以改成你自己的服务器。";
+"server.footer" = "内置预设默认使用 TLS。创建会话的人和加入会话的人必须使用同一个服务器；如果某个服务器不可用，请更换其他预设或你自己的服务器。";
 "server.preset" = "预设";
 "server.preset.libera" = "Libera Chat";
 "server.preset.rizon" = "Rizon";
@@ -45,6 +45,8 @@
 "server.summary" = "%@:%d · %@";
 "appearance.section" = "悬浮窗";
 "appearance.footer" = "悬浮窗会跟随系统深浅色，并使用标准 SwiftUI 材质。";
+"appearance.advanced.section" = "高级";
+"appearance.advanced.footer" = "可进一步调整预览停留时长、消息换行和时间信息，适合更偏专业的聊天布局。填 0 表示不限：消息不截断，预览不自动收起。";
 "messages.section" = "消息";
 "messages.none" = "还没有本地消息。";
 "messages.none.short" = "暂无消息";
@@ -62,6 +64,11 @@
 "field.left_padding" = "左边距";
 "field.bottom_padding" = "下边距";
 "field.visible_messages" = "显示消息条数";
+"field.message_lines" = "每条消息显示行数";
+"field.preview_duration" = "预览停留时长";
+"field.seconds" = "秒";
+"field.auto_preview" = "新消息自动弹出预览";
+"field.timestamps" = "显示时间戳";
 "action.create_session" = "创建会话";
 "action.join_session" = "加入会话";
 "action.stop_session" = "停止会话";

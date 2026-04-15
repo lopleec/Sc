@@ -4,6 +4,11 @@ struct OverlayChatView: View {
     @EnvironmentObject private var model: AppModel
     @Environment(\.colorScheme) private var colorScheme
 
+    private var lineLimit: Int? {
+        let limit = model.settings.appearance.clamped().messageLineLimit
+        return limit == 0 ? nil : limit
+    }
+
     var body: some View {
         ScrollViewReader { proxy in
             VStack(alignment: .leading, spacing: 10) {
@@ -37,8 +42,8 @@ struct OverlayChatView: View {
                     .frame(height: max(model.settings.appearance.fontSize + 4, 20))
 
                     HStack(spacing: 8) {
-                        Text(L10n.key("overlay.return_to_send"))
-                        Text(L10n.key("overlay.esc_to_hide"))
+                        Text(L10n.string("overlay.return_to_send"))
+                        Text(L10n.string("overlay.esc_to_hide"))
                     }
                     .font(.system(size: max(model.settings.appearance.fontSize - 9, 8), weight: .regular, design: .rounded))
                     .foregroundStyle(.secondary)
@@ -82,7 +87,7 @@ struct OverlayChatView: View {
 
     private var header: some View {
         HStack(alignment: .center) {
-            Label(L10n.key("app.title"), systemImage: "bubble.left.and.bubble.right.fill")
+            Label(L10n.string("app.title"), systemImage: "bubble.left.and.bubble.right.fill")
                 .font(.headline)
 
             if let channel = model.currentSession?.channel {
@@ -102,21 +107,37 @@ struct OverlayChatView: View {
     @ViewBuilder
     private func messageLine(_ message: ChatMessage) -> some View {
         if message.kind == .system {
-            Text(message.text)
-                .font(.system(size: max(model.settings.appearance.fontSize - 3, 11), weight: .medium, design: .rounded))
-                .foregroundStyle(.secondary)
-                .lineLimit(2)
-        } else {
-            HStack(alignment: .firstTextBaseline, spacing: 6) {
-                Text(message.sender ?? L10n.string("common.unknown"))
-                    .foregroundStyle(model.color(for: message.sender ?? L10n.string("common.unknown")))
-                    .fontWeight(.semibold)
+            VStack(alignment: .leading, spacing: 2) {
+                if model.settings.appearance.showTimestamps {
+                    Text(message.timestamp, format: .dateTime.hour().minute())
+                        .font(.caption2.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                }
 
                 Text(message.text)
-                    .foregroundStyle(.primary)
+                    .font(.system(size: max(model.settings.appearance.fontSize - 3, 11), weight: .medium, design: .rounded))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(lineLimit)
             }
-            .font(.system(size: max(model.settings.appearance.fontSize - 2, 12), weight: .medium, design: .rounded))
-            .lineLimit(2)
+        } else {
+            VStack(alignment: .leading, spacing: 2) {
+                if model.settings.appearance.showTimestamps {
+                    Text(message.timestamp, format: .dateTime.hour().minute())
+                        .font(.caption2.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                }
+
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    Text(message.sender ?? L10n.string("common.unknown"))
+                        .foregroundStyle(model.color(for: message.sender ?? L10n.string("common.unknown")))
+                        .fontWeight(.semibold)
+
+                    Text(message.text)
+                        .foregroundStyle(.primary)
+                }
+                .font(.system(size: max(model.settings.appearance.fontSize - 2, 12), weight: .medium, design: .rounded))
+                .lineLimit(lineLimit)
+            }
         }
     }
 

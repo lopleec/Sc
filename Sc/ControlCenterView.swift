@@ -10,7 +10,7 @@ struct ControlCenterView: View {
                 activeSessionSection
                 recentMessagesSidebarSection
             }
-            .navigationTitle(L10n.key("app.title"))
+            .navigationTitle(L10n.string("app.title"))
             .listStyle(.sidebar)
         } detail: {
             Form {
@@ -20,10 +20,11 @@ struct ControlCenterView: View {
                 languageSection
                 serverSection
                 appearanceSection
+                advancedAppearanceSection
                 recentMessagesDetailSection
             }
             .formStyle(.grouped)
-            .navigationTitle(L10n.key("app.settings.title"))
+            .navigationTitle(L10n.string("app.settings.title"))
             .toolbar {
                 ToolbarItemGroup {
                     Button(L10n.string("action.copy")) {
@@ -52,7 +53,7 @@ struct ControlCenterView: View {
                         .foregroundStyle(model.connectionState.tone)
                 }
             } label: {
-                Text(L10n.key("overview.connection"))
+                Text(L10n.string("overview.connection"))
             }
 
             Label(L10n.string("overview.hotkey"), systemImage: "keyboard")
@@ -68,12 +69,15 @@ struct ControlCenterView: View {
                         .foregroundStyle(model.hotKeyCaptureStatus.tone)
                 }
             } label: {
-                Text(L10n.key("overview.hotkey_capture"))
+                Text(L10n.string("overview.hotkey_capture"))
             }
 
             Text(model.hotKeyCaptureStatus.note)
                 .font(.callout)
                 .foregroundStyle(.secondary)
+                .lineLimit(nil)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
 
             if model.shouldShowFullScreenHotKeyPermissionButton {
@@ -87,43 +91,49 @@ struct ControlCenterView: View {
                 Text(bannerText)
                     .font(.callout)
                     .foregroundStyle(.secondary)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
 
     private var activeSessionSection: some View {
-        Section(L10n.key("sidebar.active_session")) {
+        Section(L10n.string("sidebar.active_session")) {
             if let session = model.currentSession {
-                LabeledContent(L10n.key("field.channel")) {
+                LabeledContent(L10n.string("field.channel")) {
                     Text(session.channel)
                         .font(.system(.body, design: .monospaced))
                         .textSelection(.enabled)
                 }
 
-                LabeledContent(L10n.key("field.server")) {
+                LabeledContent(L10n.string("field.server")) {
                     Text(session.server.summary)
                         .font(.system(.body, design: .monospaced))
                         .multilineTextAlignment(.trailing)
                 }
 
-                LabeledContent(L10n.key("field.nickname")) {
+                LabeledContent(L10n.string("field.nickname")) {
                     Text(model.settings.normalizedNickname)
                         .foregroundStyle(model.nicknamePreviewColor)
                         .fontWeight(.semibold)
                 }
             } else {
-                Text(L10n.key("session.none"))
+                Text(L10n.string("session.none"))
                     .foregroundStyle(.secondary)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
 
     private var recentMessagesSidebarSection: some View {
-        Section(L10n.key("sidebar.recent_messages")) {
+        Section(L10n.string("sidebar.recent_messages")) {
             if model.displayedMessages.isEmpty {
-                Text(L10n.key("messages.none.short"))
+                Text(L10n.string("messages.none.short"))
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(model.displayedMessages) { message in
@@ -137,10 +147,10 @@ struct ControlCenterView: View {
     private var appIntroSection: some View {
         Section {
             VStack(alignment: .leading, spacing: 8) {
-                Text(L10n.key("app.subtitle"))
+                Text(L10n.string("app.subtitle"))
                     .font(.title3.weight(.semibold))
 
-                Text(L10n.key("app.description"))
+                Text(L10n.string("app.description"))
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -160,7 +170,7 @@ struct ControlCenterView: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                Text(L10n.key("field.join_code"))
+                Text(L10n.string("field.join_code"))
                     .foregroundStyle(.secondary)
 
                 TextField(L10n.string("session.join.placeholder"), text: $model.joinCodeInput, axis: .vertical)
@@ -171,18 +181,18 @@ struct ControlCenterView: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(L10n.key("field.current_invite"))
+                    Text(L10n.string("field.current_invite"))
                         .foregroundStyle(.secondary)
                     Spacer()
                     if !model.currentInviteCode.isEmpty {
                         ShareLink(item: model.currentInviteCode) {
-                            Label(L10n.key("action.share"), systemImage: "square.and.arrow.up")
+                            Label(L10n.string("action.share"), systemImage: "square.and.arrow.up")
                         }
                     }
                 }
 
                 if model.currentInviteCode.isEmpty {
-                    Text(L10n.key("session.current_invite.empty"))
+                    Text(L10n.string("session.current_invite.empty"))
                         .foregroundStyle(.secondary)
                 } else {
                     Text(model.currentInviteCode)
@@ -190,12 +200,12 @@ struct ControlCenterView: View {
                         .textSelection(.enabled)
                 }
 
-                Text(L10n.key("session.help"))
+                Text(L10n.string("session.help"))
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
         } header: {
-            Text(L10n.key("session.section"))
+            Text(L10n.string("session.section"))
         }
     }
 
@@ -224,35 +234,35 @@ struct ControlCenterView: View {
             TextField(L10n.string("field.nickname"), text: nicknameBinding())
                 .textFieldStyle(.roundedBorder)
 
-            LabeledContent(L10n.key("identity.color_preview")) {
+            LabeledContent(L10n.string("identity.color_preview")) {
                 Text(model.settings.normalizedNickname)
                     .foregroundStyle(model.nicknamePreviewColor)
                     .fontWeight(.semibold)
             }
         } header: {
-            Text(L10n.key("identity.section"))
+            Text(L10n.string("identity.section"))
         } footer: {
-            Text(L10n.key("identity.footer"))
+            Text(L10n.string("identity.footer"))
         }
     }
 
     private var languageSection: some View {
         Section {
-            Picker(L10n.key("language.selection"), selection: binding(\.appLanguage)) {
+            Picker(L10n.string("language.selection"), selection: binding(\.appLanguage)) {
                 ForEach(AppLanguage.allCases) { language in
                     Text(language.title).tag(language)
                 }
             }
         } header: {
-            Text(L10n.key("language.section"))
+            Text(L10n.string("language.section"))
         } footer: {
-            Text(L10n.key("language.footer"))
+            Text(L10n.string("language.footer"))
         }
     }
 
     private var serverSection: some View {
         Section {
-            Picker(L10n.key("server.preset"), selection: binding(\.selectedServerPreset)) {
+            Picker(L10n.string("server.preset"), selection: binding(\.selectedServerPreset)) {
                 ForEach(ServerPreset.allCases) { preset in
                     Text(preset.title).tag(preset)
                 }
@@ -265,24 +275,24 @@ struct ControlCenterView: View {
                 TextField(L10n.string("field.port"), value: binding(\.customServer.port), format: .number)
                     .textFieldStyle(.roundedBorder)
 
-                Toggle(L10n.key("action.use_tls"), isOn: binding(\.customServer.useTLS))
+                Toggle(L10n.string("action.use_tls"), isOn: binding(\.customServer.useTLS))
             } else if let preset = model.settings.selectedServerPreset.defaultConfiguration {
-                LabeledContent(L10n.key("field.host")) {
+                LabeledContent(L10n.string("field.host")) {
                     Text(preset.host)
                 }
 
-                LabeledContent(L10n.key("field.port")) {
+                LabeledContent(L10n.string("field.port")) {
                     Text("\(preset.port)")
                 }
 
-                LabeledContent(L10n.key("server.mode")) {
+                LabeledContent(L10n.string("server.mode")) {
                     Text(L10n.string(preset.useTLS ? "server.mode.tls" : "server.mode.plain"))
                 }
             }
         } header: {
-            Text(L10n.key("server.section"))
+            Text(L10n.string("server.section"))
         } footer: {
-            Text(L10n.key("server.footer"))
+            Text(L10n.string("server.footer"))
         }
     }
 
@@ -293,25 +303,32 @@ struct ControlCenterView: View {
             sliderRow(title: "field.width", value: binding(\.appearance.overlayWidth), range: 320...620, format: "%.0f px")
             sliderRow(title: "field.left_padding", value: binding(\.appearance.edgePadding), range: 0...60, format: "%.0f px")
             sliderRow(title: "field.bottom_padding", value: binding(\.appearance.bottomPadding), range: 0...80, format: "%.0f px")
-
-            Stepper(value: bindingForMessageLimit(), in: 3...12) {
-                LabeledContent(L10n.key("field.visible_messages")) {
-                    Text("\(model.settings.appearance.messageLimit)")
-                        .monospacedDigit()
-                }
-            }
+            integerFieldRow(title: "field.visible_messages", value: bindingForMessageLimit(), range: 3...20)
         } header: {
-            Text(L10n.key("appearance.section"))
+            Text(L10n.string("appearance.section"))
         } footer: {
-            Text(L10n.key("appearance.footer"))
+            Text(L10n.string("appearance.footer"))
+        }
+    }
+
+    private var advancedAppearanceSection: some View {
+        Section {
+            integerFieldRow(title: "field.message_lines", value: bindingForMessageLineLimit(), range: 0...6)
+            doubleFieldRow(title: "field.preview_duration", value: binding(\.appearance.previewDuration), range: 0...15, unit: L10n.string("field.seconds"))
+            Toggle(L10n.string("field.auto_preview"), isOn: binding(\.appearance.showIncomingPreview))
+            Toggle(L10n.string("field.timestamps"), isOn: binding(\.appearance.showTimestamps))
+        } header: {
+            Text(L10n.string("appearance.advanced.section"))
+        } footer: {
+            Text(L10n.string("appearance.advanced.footer"))
         }
     }
 
     private var recentMessagesDetailSection: some View {
-        Section(L10n.key("messages.section")) {
+        Section(L10n.string("messages.section")) {
             if model.displayedMessages.isEmpty {
                 ContentUnavailableView {
-                    Label(L10n.key("messages.none"), systemImage: "bubble.left.and.bubble.right")
+                    Label(L10n.string("messages.none"), systemImage: "bubble.left.and.bubble.right")
                 }
             } else {
                 ForEach(model.displayedMessages) { message in
@@ -339,13 +356,43 @@ struct ControlCenterView: View {
 
     private func sliderRow(title: String, value: Binding<Double>, range: ClosedRange<Double>, format: String) -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            LabeledContent(L10n.key(title)) {
+            LabeledContent(L10n.string(title)) {
                 Text(String(format: format, value.wrappedValue))
                     .monospacedDigit()
                     .foregroundStyle(.secondary)
             }
 
             Slider(value: value, in: range)
+        }
+        .padding(.vertical, 2)
+    }
+
+    private func integerFieldRow(title: String, value: Binding<Int>, range: ClosedRange<Int>) -> some View {
+        HStack(alignment: .center, spacing: 10) {
+            Text(L10n.string(title))
+            Spacer(minLength: 12)
+            TextField("", value: value, format: .number)
+                .textFieldStyle(.roundedBorder)
+                .multilineTextAlignment(.trailing)
+                .frame(width: 64)
+            Stepper("", value: value, in: range)
+                .labelsHidden()
+        }
+        .padding(.vertical, 2)
+    }
+
+    private func doubleFieldRow(title: String, value: Binding<Double>, range: ClosedRange<Double>, unit: String) -> some View {
+        HStack(alignment: .center, spacing: 10) {
+            Text(L10n.string(title))
+            Spacer(minLength: 12)
+            TextField("", value: value, format: .number.precision(.fractionLength(0)))
+                .textFieldStyle(.roundedBorder)
+                .multilineTextAlignment(.trailing)
+                .frame(width: 64)
+            Text(unit)
+                .foregroundStyle(.secondary)
+            Stepper("", value: value, in: range, step: 1)
+                .labelsHidden()
         }
         .padding(.vertical, 2)
     }
@@ -370,20 +417,46 @@ struct ControlCenterView: View {
             set: { model.settings.appearance.messageLimit = $0 }
         )
     }
+
+    private func bindingForMessageLineLimit() -> Binding<Int> {
+        Binding(
+            get: { model.settings.appearance.messageLineLimit },
+            set: { model.settings.appearance.messageLineLimit = $0 }
+        )
+    }
 }
 
 private struct SidebarMessageRow: View {
     @EnvironmentObject private var model: AppModel
     let message: ChatMessage
 
+    private var timestampText: String {
+        message.timestamp.formatted(date: .omitted, time: .shortened)
+    }
+
+    private var lineLimit: Int? {
+        let limit = model.settings.appearance.clamped().messageLineLimit
+        return limit == 0 ? nil : limit
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             if message.kind == .system {
+                if model.settings.appearance.showTimestamps {
+                    Text(timestampText)
+                        .font(.caption2.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                }
                 Text(message.text)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
-                    .lineLimit(2)
+                    .lineLimit(lineLimit)
             } else {
+                if model.settings.appearance.showTimestamps {
+                    Text(timestampText)
+                        .font(.caption2.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                }
                 Text(message.sender ?? L10n.string("common.unknown"))
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(model.color(for: message.sender ?? L10n.string("common.unknown")))
@@ -391,7 +464,7 @@ private struct SidebarMessageRow: View {
                 Text(message.text)
                     .font(.footnote)
                     .foregroundStyle(.primary)
-                    .lineLimit(2)
+                    .lineLimit(lineLimit)
             }
         }
         .padding(.vertical, 2)
@@ -402,17 +475,33 @@ private struct DetailMessageRow: View {
     @EnvironmentObject private var model: AppModel
     let message: ChatMessage
 
+    private var timestampText: String {
+        message.timestamp.formatted(date: .omitted, time: .shortened)
+    }
+
+    private var lineLimit: Int? {
+        let limit = model.settings.appearance.clamped().messageLineLimit
+        return limit == 0 ? nil : limit
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
+            if model.settings.appearance.showTimestamps {
+                Text(timestampText)
+                    .font(.caption2.monospacedDigit())
+                    .foregroundStyle(.secondary)
+            }
             if message.kind == .system {
                 Text(message.text)
                     .foregroundStyle(.secondary)
+                    .lineLimit(lineLimit)
             } else {
                 Text(message.sender ?? L10n.string("common.unknown"))
                     .foregroundStyle(model.color(for: message.sender ?? L10n.string("common.unknown")))
                     .fontWeight(.semibold)
 
                 Text(message.text)
+                    .lineLimit(lineLimit)
             }
         }
         .padding(.vertical, 2)

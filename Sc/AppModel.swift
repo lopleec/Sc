@@ -85,6 +85,61 @@ struct AppearanceSettings: Codable, Equatable {
     var edgePadding: Double = 18
     var bottomPadding: Double = 26
     var messageLimit: Int = 6
+    var messageLineLimit: Int = 2
+    var previewDuration: Double = 6
+    var showIncomingPreview: Bool = true
+    var showTimestamps: Bool = false
+
+    private enum CodingKeys: String, CodingKey {
+        case overlayOpacity
+        case fontSize
+        case overlayWidth
+        case edgePadding
+        case bottomPadding
+        case messageLimit
+        case messageLineLimit
+        case previewDuration
+        case showIncomingPreview
+        case showTimestamps
+    }
+
+    init(
+        overlayOpacity: Double = 0.72,
+        fontSize: Double = 17,
+        overlayWidth: Double = 420,
+        edgePadding: Double = 18,
+        bottomPadding: Double = 26,
+        messageLimit: Int = 6,
+        messageLineLimit: Int = 2,
+        previewDuration: Double = 6,
+        showIncomingPreview: Bool = true,
+        showTimestamps: Bool = false
+    ) {
+        self.overlayOpacity = overlayOpacity
+        self.fontSize = fontSize
+        self.overlayWidth = overlayWidth
+        self.edgePadding = edgePadding
+        self.bottomPadding = bottomPadding
+        self.messageLimit = messageLimit
+        self.messageLineLimit = messageLineLimit
+        self.previewDuration = previewDuration
+        self.showIncomingPreview = showIncomingPreview
+        self.showTimestamps = showTimestamps
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        overlayOpacity = try container.decodeIfPresent(Double.self, forKey: .overlayOpacity) ?? 0.72
+        fontSize = try container.decodeIfPresent(Double.self, forKey: .fontSize) ?? 17
+        overlayWidth = try container.decodeIfPresent(Double.self, forKey: .overlayWidth) ?? 420
+        edgePadding = try container.decodeIfPresent(Double.self, forKey: .edgePadding) ?? 18
+        bottomPadding = try container.decodeIfPresent(Double.self, forKey: .bottomPadding) ?? 26
+        messageLimit = try container.decodeIfPresent(Int.self, forKey: .messageLimit) ?? 6
+        messageLineLimit = try container.decodeIfPresent(Int.self, forKey: .messageLineLimit) ?? 2
+        previewDuration = try container.decodeIfPresent(Double.self, forKey: .previewDuration) ?? 6
+        showIncomingPreview = try container.decodeIfPresent(Bool.self, forKey: .showIncomingPreview) ?? true
+        showTimestamps = try container.decodeIfPresent(Bool.self, forKey: .showTimestamps) ?? false
+    }
 
     func clamped() -> AppearanceSettings {
         AppearanceSettings(
@@ -93,7 +148,11 @@ struct AppearanceSettings: Codable, Equatable {
             overlayWidth: min(max(overlayWidth, 320), 620),
             edgePadding: min(max(edgePadding, 0), 60),
             bottomPadding: min(max(bottomPadding, 0), 80),
-            messageLimit: min(max(messageLimit, 3), 12)
+            messageLimit: min(max(messageLimit, 3), 20),
+            messageLineLimit: min(max(messageLineLimit, 0), 6),
+            previewDuration: min(max(previewDuration, 0), 15),
+            showIncomingPreview: showIncomingPreview,
+            showTimestamps: showTimestamps
         )
     }
 
@@ -207,7 +266,7 @@ enum ConnectionState: Equatable {
     var tone: Color {
         switch self {
         case .idle:
-            Color.white.opacity(0.82)
+            .secondary
         case .connecting, .joining:
             Color.yellow
         case .connected:
@@ -813,6 +872,7 @@ final class AppModel: ObservableObject {
     private func showPreviewOverlayForIncomingMessage() {
         guard hasActiveSession else { return }
         guard overlayPresentationMode != .manual else { return }
+        guard settings.appearance.clamped().showIncomingPreview else { return }
 
         overlayPresentationMode = .preview
         overlayVisible = true
@@ -823,8 +883,10 @@ final class AppModel: ObservableObject {
 
     private func schedulePreviewAutoHide() {
         cancelPreviewAutoHide()
+        let delay = settings.appearance.clamped().previewDuration
+        guard delay > 0 else { return }
         previewHideTask = Task { @MainActor [weak self] in
-            try? await Task.sleep(for: .seconds(6))
+            try? await Task.sleep(for: .seconds(delay))
             guard let self, self.overlayPresentationMode == .preview else { return }
             self.hideOverlay()
         }

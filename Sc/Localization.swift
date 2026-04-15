@@ -1,5 +1,4 @@
 import Foundation
-import SwiftUI
 
 enum AppLanguage: String, CaseIterable, Codable, Identifiable {
     case system
@@ -48,10 +47,6 @@ enum L10n {
 
     static func setAppLanguage(_ language: AppLanguage) {
         UserDefaults.standard.set(language.rawValue, forKey: appLanguageDefaultsKey)
-    }
-
-    static func key(_ key: String) -> LocalizedStringKey {
-        LocalizedStringKey(key)
     }
 
     static func string(_ key: String) -> String {
